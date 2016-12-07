@@ -1,0 +1,15 @@
+dynamodb = new AWS.DynamoDB({ region: 'us-west-2' });
+docClient = new AWS.DynamoDB.DocumentClient({ service: dynamodb });
+var data = "";
+
+var params = {
+    TableName: "Table"
+};
+
+docClient.scan(params, function(err, data) {
+    if (err)
+        console.log(JSON.stringify(err, null, 2));
+    else
+        data += (JSON.stringify(data, null, 2));
+	document.getElementById('body').innerHTML = data;
+});
