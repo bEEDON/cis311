@@ -1,0 +1,6 @@
+Home - https://s3-us-west-2.amazonaws.com/brendonq/Website/index.html
+About - https://s3-us-west-2.amazonaws.com/brendonq/Website/about.html
+Legal - https://s3-us-west-2.amazonaws.com/brendonq/Website/legal.html
+FAQ - https://s3-us-west-2.amazonaws.com/brendonq/Website/faq.html
+thisPodcast - https://s3-us-west-2.amazonaws.com/brendonq/Website/thisPodcast.html
+searchPodcast - https://s3-us-west-2.amazonaws.com/brendonq/Website/searchPodcast.html
