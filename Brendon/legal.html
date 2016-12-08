@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
    <!--
       Website  
@@ -17,7 +17,7 @@
     <script id="facebook-jssdk" src="https://connect.facebook.net/en_US/all.js"></script>
 	
 	
-  <title>This Month's Podcasts</title>
+  <title>Legal Information</title>
  
 </head>
 <body class = "bgimagepage">
@@ -108,12 +108,11 @@
 		<button id="login" style="display:inline" >Login</button>
 		<button id="logout" style="display:none">Logout</button>
 		</div>
-		
-		
-		
-		
   </div>
 </nav>
+
+
+
 
 <script type="text/javascript">
 	function setCookie(cname, cvalue, exdays) {
@@ -137,6 +136,8 @@
                   }
                      
     setCookie("login", "no", 30);       
+	
+
 	</script>
 
 <div class="content container">
@@ -148,22 +149,34 @@
 </div>
 
 <div align ="center">
-<h3>This Month's Podcasts:</h3>
+<h3>Legal Information</h3>
 
+<div id="body" style="color: #FFFFFF" ><br>
+Bronco Function does not assume responsibility for any liabilities<br>
+that may happen with the use of this site. Bronco Function will not <br>
+be held responsible for injury, death, damage, loss, delay, cost, <br>
+expense, or inconvenience arising from partying beyond your control.<br><br>
 
+If you wish to report an incident regarding the use of our site,<br>
+please upload a word docuement or fill out our form below our<br>
+regarding the incident. Thank you.<br><br>
 
-<div id="body" style="color: #FFFFFF" >Please sign in to view recent podcasts.</div><br>
+<input type="submit" value="Upload Incident Document" 
+    onClick="window.location.href='legal2.html'" style="color: #000000"/>  
+	
 
-<h3>Submit a Podcast:</h3><br>
+<br><br></div>
 
 <form name="input" action="javascript:put();" onsubmit="return validate_Form()" method="get" id="signupform" >
-		<!-- Date (MM/YYYY): <input id="date" type="text" style="color: #000000" /><br /> -->
-		Music Genre: <input id="genre" type="text" style="color: #000000"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<br />
-		Podcast Name: <input id="name" type="text" style="color: #000000"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<br/>
-		DJ Arstist: <input id="artist" type="text" style="color: #000000"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<br />
-		Podcast Link: <input id="link" type="text" style="color: #000000"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<br />
-		<br><input id="putThis" type="submit" value="Submit Podcast" style="color: #000000" />
-		<script>
+		Name: <input id="name" type="text" style="color: #000000" /><br />
+		Phone Number: <input id="phone" type="text" style="color: #000000"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<br />
+		Email: <input id="email" type="text" style="color: #000000"/><br /><br>
+		Incident: <br><textarea id="incident" type="text" style="color: #000000" rows="4" cols="50"/></textarea><br />
+		<input id="putThis" type="submit" value="Submit Incident Form" style="color: #000000" />
+		<script>document.getElementById("name").style.borderColor = 'black';
+				document.getElementById("phone").style.borderColor = 'black';
+				document.getElementById("email").style.borderColor = 'black';
+				document.getElementById("incident").style.borderColor = 'black';
 				setCookie("login", "no", 30);
 
 		</script>
@@ -171,7 +184,11 @@
 		</div>
 	</fieldset>
 	</form>
+	
+
 </div>
+<div id="fb-root"></div>
+
 
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -181,58 +198,36 @@
                   
         var fbUserId;
         var params;
-        var date; //name
-        var genre; //att1
-		var name; //att2
-		var artist;
-		var link;
+        var name; //name
+        var email; //att1
+		var incident; //att2
         var dynamodb = null;
         var docClient = null;
         var appId = '852908834733339'; //from facebook
         var roleArn = 'arn:aws:iam::801641316967:role/role3'; //from AWS IAM
         var resultData = null;
 
-		
 	
 		function put() {
 				dynamodb = new AWS.DynamoDB({ region: 'us-west-2' });
 				docClient = new AWS.DynamoDB.DocumentClient({ service: dynamodb });
-
-				genre = document.getElementById("genre").value;
 				name = document.getElementById("name").value;
-				artist = document.getElementById("artist").value;
-				link = document.getElementById("link").value;
+				phone = document.getElementById("phone").value;
+				email = document.getElementById("email").value;
+				incident = document.getElementById("incident").value;
 				
-				
-				console.log("genre: ", genre);
-				console.log("name: ", name);
-				console.log("artist: ", artist);
-				console.log("link: ", link);
-				
-				//get current date
-				var currentdate = new Date();
-				
-				var month = +(currentdate.getMonth() + 1) + "/"
-						+ currentdate.getFullYear();
-				
-				//get full date
-				var postDate = +(currentdate.getMonth() + 1) + "/"
-						+ currentdate.getDate() + "/"
-						+ currentdate.getFullYear() + " @ "
-						+ currentdate.getHours() + ":"
-						+ currentdate.getMinutes() + ":"
-						+ currentdate.getSeconds();
+				//log to console
+				console.log("Name: ", name);
+				console.log("Email: ", email);
+				console.log("Incident: ", incident);
 				
 				params = {
-					TableName: 'Podcasts',
+					TableName: 'SubmittedIncidents',
 					Item: {
-						Genre: genre,
-						Artist: artist,
-						Link: link,
-						PodcastName: name,
-						MonthDate: month,
-						PostDate: postDate,
-						
+						Name: name,
+						Phone: phone,
+						Email: email,
+						Incident: incident
 					}
 				};
 				docClient.put(params, function(err, data){
@@ -241,131 +236,83 @@
 					{
 						resultData = data;
 						console.log(resultData);
-						alert("Thank you for submitting your podcast!");
+						alert("Thank you for submitting your incident. We will try to respond and answer your question as soon as we can.");
 						
 						//clear fields
-						document.getElementById("genre").value = "";
-						document.getElementById("name").value = "";;
-						document.getElementById("artist").value = "";
-						document.getElementById("link").value = "";
-						window.location.href='thisPodcast.html';
+						document.getElementById("name").value = "";
+						document.getElementById("phone").value = "";
+						document.getElementById("email").value = "";;
+						document.getElementById("incident").value = "";
 						}
 					})		
 			
 		};
 
 	 function validate_Form() {
-		var genreArr = document.forms["input"]["genre"].value;
 		var nameArr = document.forms["input"]["name"].value;
-		var linkArr = document.forms["input"]["link"].value;
-		var artistArr = document.forms["input"]["artist"].value;
-		
+		var phoneArr = document.forms["input"]["phone"].value;
+		var emailArr = document.forms["input"]["email"].value.match(/^\s*[A-Za-z0-9!@#$%^&*()_+-=]+[@][A-Za-z0-9!@#$%^&*()_+-=]+[.][A-Za-z]{3}\s*$/);
+		var incidentArr = document.forms["input"]["incident"].value;
 		
 		//check to see if logged in
 		var check = getCookie("login");
 		if (check == "yes") {
-			
-			//Validate genre
-			if (genreArr != "") {
-				document.getElementById("genre").style.borderColor = 'black';
-				document.getElementById("genre").style.backgroundColor = "white";
-			} else {
-				alert("Please enter a genre");
-				document.getElementById("genre").style.borderColor = '#FF0000';
-				return false;
-			}
 			
 			//Validate Name
 			if (nameArr != "") {
 				document.getElementById("name").style.borderColor = 'black';
 				document.getElementById("name").style.backgroundColor = "white";
 			} else {
-				alert("Please enter a podcast name");
+				alert("Please enter a name");
 				document.getElementById("name").style.borderColor = '#FF0000';
 				return false;
 			}
 			
-			//Validate artist
-			if (artistArr != "") {
-				document.getElementById("artist").style.borderColor = 'black';
-				document.getElementById("artist").style.backgroundColor = "white";
+			//Validate Phonenumber
+			if (phoneArr != "") {
+				document.getElementById("phone").style.borderColor = 'black';
+				document.getElementById("phone").style.backgroundColor = "white";
 			} else {
-				alert("Please enter an artist name");
-				document.getElementById("artist").style.borderColor = '#FF0000';
+				alert("Please enter a phone number");
+				document.getElementById("phone").style.borderColor = '#FF0000';
 				return false;
 			}
-
 			
+			//Validate Email
+			if (emailArr != null) {
+				document.getElementById("email").style.borderColor = 'black';
+				document.getElementById("email").style.backgroundColor = "white";
+			} else {
+				alert("You have entered an invalid email");
+				document.getElementById("email").style.borderColor = '#FF0000';
+				return false;
+			}
 			
-			//Validate link
-			if (linkArr != "") {
-				document.getElementById("link").style.borderColor = 'black';
-				document.getElementById("link").style.backgroundColor = "white";
+			//Validate incident
+			if (incidentArr != "") {
+				document.getElementById("incident").style.borderColor = 'black';
+				document.getElementById("incident").style.style.backgroundColor = "white";
 				return true;
 			} else {
-				alert("Please enter the podcast URL");
-				document.getElementById("link").style.borderColor = '#FF0000';
+				alert("Please enter your incident");
+				document.getElementById("incident").style.borderColor = '#FF0000';
 				return false;
 			}
 		
 		}else{
-			alert("Please log in to submit a podcast.");
+			alert("Please log in to submit an incident report.");
 			return false;
 			}
     };
 
-		
-		
+	
+	
 	//============ LOGGIN IN ================================
 	function login()
 	{
 			//alert("Welcome!");
 			setCookie("login", "yes", 30);
 			
-			//============ GET TABLE DATA ================================
-			dynamodb = new AWS.DynamoDB({ region: 'us-west-2' });
-			docClient = new AWS.DynamoDB.DocumentClient({ service: dynamodb });
-			var data = "";
-				//get current date
-				var currentdate = new Date();
-				
-				var month = +(currentdate.getMonth() + 1) + "/"
-							+ currentdate.getFullYear();
-						
-					var params = {
-						TableName: "Podcasts",
-						IndexName: "MonthDate-index",
-						KeyConditionExpression: "MonthDate = :month",
-						ExpressionAttributeValues: {
-							":month": month
-						},
-						ProjectionExpression: "PodcastName, Artist, Genre, PostDate, Link"
-					};
-
-					docClient.query(params, function(err, data) {
-						if (err)
-							console.log(JSON.stringify(err, null, 2));
-						else
-						{
-							//Read in data from Dynamo and trim length
-							data += (JSON.stringify(data, null, 2));
-							data = data.slice(30,data.length-48);
-							
-							//Make the Data Sexier
-							for(var i = 0; i<data.length; i++)
-							{
-								data = data.replace("link", "href=");
-								data = data.replace(/["']/g, "");
-								data = data.replace("{", " ");
-								data = data.replace("},", "<br><br>");
-								data = data.replace(",", "<br>");
-								
-							}
-						
-							document.getElementById('body').innerHTML = data;
-							}
-					});
-				
 			
 			//Hide login button and show logout if logged in
 			document.getElementById("logout").style.display = "inline";
@@ -384,7 +331,6 @@
 			//Hide login button and show logout if logged in
 				document.getElementById("login").style.display = "inline";
 				document.getElementById("logout").style.display = "none";
-				document.getElementById('body').innerHTML = "Please Login to view this month's podcasts.";
 		  }
 		
 	};
@@ -442,7 +388,7 @@
 			})
 		}
 	
-	
+
 </script>
 
 

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html">
+
+   <!--
+      Website  
+      Author: Brendon Quaintance
+      Date:   12-08-16
+   -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.18.min.js"></script>
+    <script id="facebook-jssdk" src="https://connect.facebook.net/en_US/all.js"></script>
+	
+	
+  <title>Search Podcasts</title>
+ 
+</head>
+<body class = "bgimagepage">
+
+<nav class="bgimage navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <ul class="nav navbar-nav">
+
+				
+      <li ><br><br>
+      
+      
+<button type="button" onclick = "location.href='index.html';" id = "Home"
+					aria-haspopup="true" aria-expanded="true"
+					class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">Home
+					
+					
+</button>
+      
+      
+      </li>
+      <li class="dropdown"><br><br>
+
+					<button type="button" data-toggle = "dropdown" id = "About"
+					aria-haspopup="true" aria-expanded="true"
+					class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">About
+					<span class="caret"></span>
+					
+					</button>
+
+					<ul class = "dropdown-menu" aria-labelledby = "About">
+					
+						<li class = "dropdown-header"></li>
+						<li><a href="about.html">About Us</a></li>
+						<li><a href="legal.html">Legal</a></li>
+						<li><a href="faq.html">FAQ</a></li>
+					
+					</ul>
+      </li>
+      <li class="dropdown"><br><br>
+
+					<button type="button" data-toggle = "dropdown" id = "Category"
+					aria-haspopup="true" aria-expanded="true"
+					class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">Go To
+					<span class="caret"></span>
+					
+					</button>
+
+					<ul class = "dropdown-menu" aria-labelledby = "Category">
+						<li class = "dropdown-header">What are you looking for?</li>
+						<li><a href="#">Tonight</a></li>
+						<li><a href="#">Tomorrow</a></li>
+						<li><a href="#">Concerts</a></li>
+						<li><a href="#">Bars / Clubs</a></li>
+						<li><a href="#">House Parties</a></li>
+				 		<li><a href="#">Pool Parties</a></li>
+						<li><a href="#">Even Ratio</a></li>
+						<li><a href="#">21 & Over</a></li>
+						<li><a href="#">Members Only</a></li>
+						<li><a href="#">? Secret</a></li>
+						<li><a href="proof.html">Proof</a></li>
+						<li><a href="map.html">Map</a></li>
+						<li><a href="hosts.html">Hosts</a></li>
+						<li><a href="security.html">Security</a></li>
+						<li><a href="djs.html">DJs</a></li>
+						<li><a href="chat.html">Chat</a></li>
+					</ul>
+
+      </li> 
+      
+      <li><br><br>
+      
+      	<button type="button" data-toggle = "dropdown" id = "Podcast"
+					aria-haspopup="true" aria-expanded="true"
+					class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">Podcast
+					<span class="caret"></span>
+					
+		</button>
+		
+		<ul class = "dropdown-menu" aria-labelledby = "Podcasts">
+						<li><a href="thisPodcast.html">This Month's Podcasts</a></li>
+						<li><a href="searchPodcast.html">Search for Podcast</a></li>
+					</ul>
+      
+      </li>
+    </ul>    
+	<div align ="right"><br><br>
+		<button id="login" style="display:inline" >Login</button>
+		<button id="logout" style="display:none">Logout</button>
+		</div>
+  </div>
+</nav>
+
+<script type="text/javascript">
+	function setCookie(cname, cvalue, exdays) {
+		  var d = new Date();
+		  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+		  var expires = "expires=" + d.toGMTString();
+		  document.cookie = cname + "=" + cvalue + "; " + expires;
+	  }
+
+	  function getCookie(cname) {
+		  var name = cname + "=";
+		  var ca = document.cookie.split(';');
+		  for (var i = 0; i < ca.length; i++) {
+			  var c = ca[i];
+			  while (c.charAt(0) == ' ') c = c.substring(1);
+			  if (c.indexOf(name) != -1) {
+				  return c.substring(name.length, c.length);
+			  }
+		  }
+		  return "";
+	  };
+                     
+	setCookie("login", "no", 30);
+	
+	//============ Select Dropdown Value ================================
+	function jumpto(x){
+
+		if (document.form2.jumpmenu.value != "null") {
+			index = x;
+			
+			 index = document.form2.jumpmenu.options.selectedIndex.value
+			
+			if(index == "Artist-index"){
+				indexAtt = "Artist";
+				indexVal = ":artist";
+			}else if(index == "Genre-index"){
+				indexAtt = "Genre";
+				indexVal = ":genre";
+			}else{
+				indexAtt = "MonthDate-index";
+				indexVal = ":month";
+			}
+			
+		}
+	}
+
+	
+	</script>
+
+<div class="content container">
+  <div class="row ">
+    <section class="col-xs-12">
+
+<div class = "titlefont">
+<h2>Billy Bronco Functions</h2>
+</div>
+
+<div align ="center">
+<h3>Search for a Podcast</h3>
+
+
+
+<form name="form2">
+<select id="jumpmenu" onChange="jumpto(document.form2.jumpmenu.options[document.form2.jumpmenu.options.selectedIndex].value)" style="color: #000000">
+<option>Search By...</option>
+<option value=Artist-index>Artist</option>
+<option value=Genre-index>Genre</option>
+<option value=MonthDate-index>Date(MM/YYYY)</option>
+</select>
+</form><br>
+
+<form name="input" action="javascript:getData();" onsubmit="return validate_Form()" method="get" id="signupform" >
+		<input id="input" type="text" style="color: #000000"/><br />
+		<br><input id="putThis" type="submit" value="Search" style="color: #000000" />
+		<script>
+			setCookie("login", "no", 30);
+		</script>
+		<br><br>
+		</div>
+	</fieldset>
+	</form>
+
+
+</div>
+
+<div id="body" style="color: #FFFFFF" align ="center"></div>
+
+
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+                     
+        var index = "";      
+		var indexAtt = "";
+		var indexVal = "";
+		
+		
+        var fbUserId;
+        var params;
+        var name; //name
+        var email; //att1
+		var question; //att2
+        var dynamodb = null;
+        var docClient = null;
+        var appId = '852908834733339'; //from facebook
+        var roleArn = 'arn:aws:iam::801641316967:role/role3'; //from AWS IAM
+        var resultData = null;
+
+		
+		function validate_Form() {
+			var inputArr = document.forms["input"]["input"].value;
+			
+			
+			//check to see if logged in
+			var check = getCookie("login");
+			if (check == "yes") {
+				
+				//Validate dropdown
+				if (document.form2.jumpmenu.value != "null"){
+					document.getElementById("jumpmenu").style.borderColor = 'black';
+					document.getElementById("jumpmenu").style.backgroundColor = "white";
+				} else {
+					alert("Please a search option from the menu.");
+					document.getElementById("jumpmenu").style.borderColor = '#FF0000';
+					return false;
+				}
+				
+				//Validate input
+				if (inputArr) {
+					document.getElementById("input").style.borderColor = 'black';
+					document.getElementById("input").style.backgroundColor = "white";
+					return true;
+				} else {
+					alert("Please enter a search value.");
+					document.getElementById("input").style.borderColor = '#FF0000';
+					return false;
+				}
+			
+			}else{
+				alert("Please log in to submit a podcast.");
+				return false;
+				}
+		};
+		
+		//============ GET TABLE DATA ================================
+		function getData()
+		{
+		
+			dynamodb = new AWS.DynamoDB({ region: 'us-west-2' });
+			docClient = new AWS.DynamoDB.DocumentClient({ service: dynamodb });
+			var data = "";
+			var inputArr = document.forms["input"]["input"].value;
+			
+			var params;
+			index = document.form2.jumpmenu.options[document.form2.jumpmenu.options.selectedIndex].value
+			
+			if(index =="Artist-index")
+			{
+				params = {
+					TableName: "Podcasts",
+					IndexName: "Artist-index",
+					KeyConditionExpression: "Artist = :artist",
+					ExpressionAttributeValues: {
+						":artist": inputArr
+					},
+					ProjectionExpression: "PodcastName, Artist, Genre, PostDate, Link"
+				}
+			}else if(index =="Genre-index"){
+				params = {
+					TableName: "Podcasts",
+					IndexName: "Genre-index",
+					KeyConditionExpression: "Genre = :genre",
+					ExpressionAttributeValues: {
+						":genre": inputArr
+					},
+					ProjectionExpression: "PodcastName, Artist, Genre, PostDate, Link"
+				}
+			}else if(index == "MonthDate-index"){
+				params = {
+					TableName: "Podcasts",
+					IndexName: "MonthDate-index",
+					KeyConditionExpression: "MonthDate = :month",
+					ExpressionAttributeValues: {
+						":month": inputArr
+					},
+					ProjectionExpression: "PodcastName, Artist, Genre, PostDate, Link"
+				}
+			}
+			
+				docClient.query(params, function(err, data) {
+					if (err)
+						console.log(JSON.stringify(err, null, 2));
+					else
+					{
+						//Read in data from Dynamo and trim length
+						data += (JSON.stringify(data, null, 2));
+						data = data.slice(30,data.length-48);
+						
+						//Make the Data Sexier
+						for(var i = 0; i<data.length; i++)
+						{
+							data = data.replace("link", "href=");
+							data = data.replace(/["']/g, "");
+							data = data.replace("{", " ");
+							data = data.replace("},", "<br><br>");
+							data = data.replace(",", "<br>");
+							
+						}
+					
+						document.getElementById('body').innerHTML = data;
+						}
+				});
+				
+			
+			//Hide login button and show logout if logged in
+			document.getElementById("logout").style.display = "inline";
+			document.getElementById("login").style.display = "none"
+		}
+		
+	//============ LOGGIN IN ================================
+	function login()
+	{
+			//alert("Welcome!");
+			setCookie("login", "yes", 30);
+			
+						//Hide login button and show logout if logged in
+			document.getElementById("logout").style.display = "inline";
+			document.getElementById("login").style.display = "none";
+			
+
+	};
+
+	//============ LOGGIN OUT ================================
+	document.getElementById('logout').onclick = function (){
+
+		var answer = confirm("Are you sure you want to log out?")
+		  if (answer) {
+			setCookie("login", "no", 30);
+			  FB.logout(function(response) {});
+			
+			//Hide login button and show logout if logged in
+				document.getElementById("login").style.display = "inline";
+				document.getElementById("logout").style.display = "none";
+		  }
+		
+	};
+
+	window.fbAsyncInit = function () {
+		FB.init({ appId: appId });
+			FB.login(function (response) {
+				if (response.authResponse) {
+					AWS.config.credentials = new AWS.WebIdentityCredentials({ //WIF
+						RoleArn: roleArn,
+						ProviderId: 'graph.facebook.com',
+						WebIdentityToken: response.authResponse.accessToken
+					});
+
+					login();
+				}
+				else {
+					console.log("Issue logging in");
+				}
+				// Load the FB JS SDK asynchronously
+				(function (d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) { return; }
+					js = d.createElement(s); js.id = id;
+					js.src = "https://connect.facebook.net/en_US/all.js";
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));
+			})
+		
+	}
+	
+	document.getElementById('login').onclick = function () {
+		FB.init({ appId: appId });
+			FB.login(function (response) {
+				if (response.authResponse) {
+					AWS.config.credentials = new AWS.WebIdentityCredentials({ //WIF
+						RoleArn: roleArn,
+						ProviderId: 'graph.facebook.com',
+						WebIdentityToken: response.authResponse.accessToken
+					});
+
+					login();
+				}
+				else {
+					console.log("Issue logging in");
+				}
+				// Load the FB JS SDK asynchronously
+				(function (d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) { return; }
+					js = d.createElement(s); js.id = id;
+					js.src = "https://connect.facebook.net/en_US/all.js";
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));
+			})
+		}
+</script>
+
+
+</body>
+</html>
+			
+</body>
+</html>

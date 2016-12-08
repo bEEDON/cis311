@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+   <!--
+      Website  
+      Author: Brendon Quaintance
+      Date:   12-08-16
+   -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+   <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.18.min.js"></script>
+    <script id="facebook-jssdk" src="https://connect.facebook.net/en_US/all.js"></script>
+	
+	
+  <title>Submit Incident Word Document</title>
+ 
+</head>
+<body class = "bgimagepage">
+
+<nav class="bgimage navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <ul class="nav navbar-nav">
+
+				
+      <li ><br><br>
+      
+      
+<button type="button" onclick = "location.href='index.html';" id = "Home"
+					aria-haspopup="true" aria-expanded="true"
+					class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">Home
+					
+					
+</button>
+      
+      
+      </li>
+      <li class="dropdown"><br><br>
+
+					<button type="button" data-toggle = "dropdown" id = "About"
+					aria-haspopup="true" aria-expanded="true"
+					class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">About
+					<span class="caret"></span>
+					
+					</button>
+
+					<ul class = "dropdown-menu" aria-labelledby = "About">
+					
+						<li class = "dropdown-header"></li>
+						<li><a href="about.html">About Us</a></li>
+						<li><a href="legal.html">Legal</a></li>
+						<li><a href="faq.html">FAQ</a></li>
+					
+					</ul>
+      </li>
+      <li class="dropdown"><br><br>
+
+					<button type="button" data-toggle = "dropdown" id = "Category"
+					aria-haspopup="true" aria-expanded="true"
+					class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">Go To
+					<span class="caret"></span>
+					
+					</button>
+
+					<ul class = "dropdown-menu" aria-labelledby = "Category">
+						<li class = "dropdown-header">What are you looking for?</li>
+						<li><a href="#">Tonight</a></li>
+						<li><a href="#">Tomorrow</a></li>
+						<li><a href="#">Concerts</a></li>
+						<li><a href="#">Bars / Clubs</a></li>
+						<li><a href="#">House Parties</a></li>
+				 		<li><a href="#">Pool Parties</a></li>
+						<li><a href="#">Even Ratio</a></li>
+						<li><a href="#">21 & Over</a></li>
+						<li><a href="#">Members Only</a></li>
+						<li><a href="#">? Secret</a></li>
+						<li><a href="proof.html">Proof</a></li>
+						<li><a href="map.html">Map</a></li>
+						<li><a href="hosts.html">Hosts</a></li>
+						<li><a href="security.html">Security</a></li>
+						<li><a href="djs.html">DJs</a></li>
+						<li><a href="chat.html">Chat</a></li>
+					</ul>
+
+      </li> 
+      
+      <li><br><br>
+      
+      	<button type="button" data-toggle = "dropdown" id = "Podcast"
+					aria-haspopup="true" aria-expanded="true"
+					class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">Podcast
+					<span class="caret"></span>
+					
+		</button>
+		
+		<ul class = "dropdown-menu" aria-labelledby = "Podcasts">
+						<li><a href="thisPodcast.html">This Month's Podcasts</a></li>
+						<li><a href="searchPodcast.html">Search for Podcast</a></li>
+					</ul>
+      
+      </li>
+    </ul>    
+	<div align ="right"><br><br>
+		<button id="login" style="display:none" >Login</button>
+		<button id="logout" style="display:none">Logout</button>
+		</div>
+  </div>
+</nav>
+
+
+
+<div class="content container">
+  <div class="row ">
+    <section class="col-xs-12">
+
+<div class = "titlefont">
+<h2>Billy Bronco Functions</h2>
+</div>
+
+<div align ="center">
+<h3>Upload Incident Word Document</h3><br>
+
+<div style="color: #FFFFFF" >
+    <input type="file" id="file-chooser" />
+</div>
+	<div style="color: #000000" ><br>
+    <button id="upload-button" style="display:none"  >Upload to S3</button>
+		</div>
+
+    <div id="results" style="color: #FFFFFF"><br></div>
+
+    <div id="fb-root"></div>
+	
+	<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript">
+	
+        var appId = '852908834733339';
+
+        var roleArn = 'arn:aws:iam::801641316967:role/role3';
+
+        var bucketName = 'brendonq';
+
+        AWS.config.region = 'us-west-2';
+
+
+        var fbUserId;
+
+        var bucket = new AWS.S3({
+
+            params: {
+
+                Bucket: bucketName
+
+            }
+
+        });
+
+        var fileChooser = document.getElementById('file-chooser');
+
+        var button = document.getElementById('upload-button');
+
+        var results = document.getElementById('results');
+
+        button.addEventListener('click', function () {
+
+            var file = fileChooser.files[0];
+
+            if (file) {
+
+                results.innerHTML = '';
+
+                //Object key will be facebook-USERID#/FILE_NAME
+
+                var objKey = 'facebook-' + fbUserId + '/' + file.name;
+
+                var params = {
+
+                    Key: objKey,
+
+                    ContentType: file.type,
+
+                    Body: file,
+
+                    ACL: 'public-read'
+
+                };
+
+                bucket.putObject(params, function (err, data) {
+
+                    if (err) {
+
+                        results.innerHTML = 'ERROR: ' + err;
+
+                    } else {
+
+                        //listObjs();
+						alert("Thank you for submitting your Incident Docuement. We will do our best and investigate the incident and get back to you as soon as we can.");
+						window.location.href='legal2.html';
+
+                    }
+
+                });
+
+            } else {
+
+                results.innerHTML = 'Nothing to upload.';
+
+            }
+
+        }, false);
+
+        function listObjs() {
+
+            var prefix = 'facebook-' + fbUserId;
+
+            bucket.listObjects({
+
+                Prefix: prefix
+
+            }, function (err, data) {
+
+                if (err) {
+
+                    results.innerHTML = 'ERROR: ' + err;
+
+                } else {
+
+                    var objKeys = "";
+
+                    data.Contents.forEach(function (obj) {
+
+                        objKeys += obj.Key + "<br>";
+
+                    });
+
+                    results.innerHTML = objKeys;
+
+                }
+
+            });
+
+        }
+
+        /*!
+
+         * Login to your application using Facebook.
+
+         * Uses the Facebook SDK for JavaScript available here:
+
+         * https://developers.facebook.com/docs/javascript/gettingstarted/
+
+         */
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: appId
+            });
+
+            FB.login(function (response) {
+                bucket.config.credentials = new AWS.WebIdentityCredentials({
+                    ProviderId: 'graph.facebook.com',
+                    RoleArn: roleArn,
+                    WebIdentityToken: response.authResponse.accessToken
+                });
+                fbUserId = response.authResponse.userID;
+                button.style.display = 'block';
+            });
+        };
+
+         // Load the Facebook SDK asynchronously
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js";
+
+            fjs.parentNode.insertBefore(js, fjs);
+
+        }(document, 'script', 'facebook-jssdk'));
+
+    </script>
+
+</script>
+
+
+</body>
+</html>
+			
+</body>
+</html>
