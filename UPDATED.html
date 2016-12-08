@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+   <!--
+      Website  
+      Author: Brendon Quaintance
+      Date:   12-08-16
+   -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  
+  
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.18.min.js"></script>
+    <script id="facebook-jssdk" src="https://connect.facebook.net/en_US/all.js"></script>
+
+  
+  <title>About Us</title>
+ 
+</head>
+<body class = "bgimagepage">
+
+<nav class="bgimage navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <ul class="nav navbar-nav">
+
+				
+      <li ><br><br>
+      
+      
+<button type="button" onclick = "location.href='https://s3-us-west-2.amazonaws.com/brendonq/Website/index.html';" id = "Home"
+					aria-haspopup="true" aria-expanded="true"
+					class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">Home
+					
+					
+</button>
+      
+      
+      </li>
+      <li class="dropdown"><br><br>
+
+					<button type="button" data-toggle = "dropdown" id = "About"
+					aria-haspopup="true" aria-expanded="true"
+					class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">About
+					<span class="caret"></span>
+					
+					</button>
+
+					<ul class = "dropdown-menu" aria-labelledby = "About">
+					
+						<li class = "dropdown-header"></li>
+						<li><a href="https://s3-us-west-2.amazonaws.com/brendonq/Website/about.html">About Us</a></li>
+						<li><a href="https://s3-us-west-2.amazonaws.com/brendonq/Website/legal.html">Legal</a></li>
+						<li><a href="https://s3-us-west-2.amazonaws.com/brendonq/Website/faq.html">FAQ</a></li>
+					
+					</ul>
+      </li>
+      <li class="dropdown"><br><br>
+
+					<button type="button" data-toggle = "dropdown" id = "Category"
+					aria-haspopup="true" aria-expanded="true"
+					class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">Go To
+					<span class="caret"></span>
+					
+					</button>
+
+					<ul class = "dropdown-menu" aria-labelledby = "Category">
+						<li class = "dropdown-header">What are you looking for?</li>
+						<li><a href="#">Tonight</a></li>
+						<li><a href="#">Tomorrow</a></li>
+						<li><a href="#">Concerts</a></li>
+						<li><a href="#">Bars / Clubs</a></li>
+						<li><a href="https://s3-us-west-2.amazonaws.com/cisstuff/HouseParties.html">House Parties</a></li>
+				 		<li><a href="https://s3-us-west-2.amazonaws.com/cisstuff/PoolParties.html">Pool Parties</a></li>
+						<li><a href="https://s3-us-west-2.amazonaws.com/cisstuff/Even+Ratio.html">Even Ratio</a></li>
+						<li><a href="https://s3-us-west-2.amazonaws.com/cisstuff/21andOver.html">21 & Over</a></li>
+						<li><a href="https://s3-us-west-2.amazonaws.com/cisproject/memberOnlyPage.html">Members Only</a></li>
+						<li><a href="https://s3-us-west-2.amazonaws.com/memberOnlyPage.html">? Secret</a></li>
+						<li><a href="#">Proof</a></li>
+						<li><a href="https://s3-us-west-2.amazonaws.com/mapsPage.html">Map</a></li>
+						<li><a href="hosts.html">Hosts</a></li>
+						<li><a href="security.html">Security</a></li>
+						<li><a href="djs.html">DJs</a></li>
+						<li><a href="chat.html">Chat</a></li>
+					</ul>
+
+      </li> 
+      
+      <li><br><br>
+      
+      	<button type="button" data-toggle = "dropdown" id = "Podcast"
+					aria-haspopup="true" aria-expanded="true"
+					class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">Podcast
+					<span class="caret"></span>
+					
+		</button>
+		
+		<ul class = "dropdown-menu" aria-labelledby = "Podcasts">
+						<li><a href="https://s3-us-west-2.amazonaws.com/brendonq/Website/thisPodcast.html">This Month's Podcasts</a></li>
+						<li><a href="https://s3-us-west-2.amazonaws.com/brendonq/Website/searchPodcast.html">Search for Podcast</a></li>
+					</ul>
+      
+      </li>
+    </ul>    
+	<div align ="right"><br><br>
+		<button id="login" style="display:none" >Login</button>
+		<button id="logout" style="display:none">Logout</button>
+		</div>
+  </div>
+</nav>
+
+<script type="text/javascript">
+	function setCookie(cname, cvalue, exdays) {
+                      var d = new Date();
+                      d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                      var expires = "expires=" + d.toGMTString();
+                      document.cookie = cname + "=" + cvalue + "; " + expires;
+                  }
+
+                  function getCookie(cname) {
+                      var name = cname + "=";
+                      var ca = document.cookie.split(';');
+                      for (var i = 0; i < ca.length; i++) {
+                          var c = ca[i];
+                          while (c.charAt(0) == ' ') c = c.substring(1);
+                          if (c.indexOf(name) != -1) {
+                              return c.substring(name.length, c.length);
+                          }
+                      }
+                      return "";
+                  }
+                     
+    setCookie("login", "no", 30);       
+	</script>
+
+<div class="content container">
+  <div class="row ">
+    <section class="col-xs-12">
+
+<div class = "titlefont">
+<h2>Billy Bronco Functions</h2>
+</div>
+
+<div align ="center">
+<h3>About Us</h3>
+
+<img src = "https://ultramusicfestival.com/wp-content/uploads/2016/04/miami-2016-og-1.jpg" width = "800" height="400"><br><br>
+
+<font style="color:white;">
+Welcome to Bronco Functions! Here we offer an open forum to the public to publicize<br>
+or plan events. Users are able to sign in with their Facebook accounts and post <br>
+their events onto our site to gain its popularity. Finding your next event has <br>
+never been so easy! If you have any questions, please feel to contact us via<br>
+our FAQ page. Have fun and party responsibly!
+</font>
+</div>
+
+<div id="body" style="color: #FFFFFF" ></div>
+
+
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+                     
+                  
+        var fbUserId;
+        var params;
+        var name; //name
+        var email; //att1
+		var question; //att2
+        var dynamodb = null;
+        var docClient = null;
+        var appId = '852908834733339'; //from facebook
+        var roleArn = 'arn:aws:iam::801641316967:role/role3'; //from AWS IAM
+        var resultData = null;
+
+		
+		
+	//============ LOGGIN IN ================================
+	function login()
+	{
+			//alert("Welcome!");
+			setCookie("login", "yes", 30);
+			
+			
+			//Hide login button and show logout if logged in
+			document.getElementById("logout").style.display = "inline";
+			document.getElementById("login").style.display = "none";
+
+	};
+
+	//============ LOGGIN OUT ================================
+	document.getElementById('logout').onclick = function (){
+
+		var answer = confirm("Are you sure you want to log out?")
+		  if (answer) {
+			setCookie("login", "no", 30);
+			  FB.logout(function(response) {});
+			
+			//Hide login button and show logout if logged in
+				document.getElementById("login").style.display = "inline";
+				document.getElementById("logout").style.display = "none";
+		  }
+		
+	};
+
+	window.fbAsyncInit = function () {
+		FB.init({ appId: appId });
+		document.getElementById('login').onclick = function () {
+			FB.login(function (response) {
+				if (response.authResponse) {
+					AWS.config.credentials = new AWS.WebIdentityCredentials({ //WIF
+						RoleArn: roleArn,
+						ProviderId: 'graph.facebook.com',
+						WebIdentityToken: response.authResponse.accessToken
+					});
+
+					login();
+				}
+				else {
+					console.log("Issue logging in");
+				}
+				// Load the FB JS SDK asynchronously
+				(function (d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) { return; }
+					js = d.createElement(s); js.id = id;
+					js.src = "https://connect.facebook.net/en_US/all.js";
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));
+			})
+		}
+	}
+</script>
+
+
+</body>
+</html>
+			
+</body>
+</html>
