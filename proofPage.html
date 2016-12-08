@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bronco Function</title>
+<!--<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cisproject/css/bootstrap.css"> <!--added href from aws -->
+<!--<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cisproject/css/dropdown.css"> <!--added href from aws -->
+<link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/dropdown.css">
+
+</head>
+<nav class="navbar navbar-inverse navbar-fixed top">
+  <div class="container-fluid">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+  	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    	<span class="sr-only">Toggle navigation</span>
+    	<span class="icon-bar"></span>
+    	<span class="icon-bar"></span>
+    	<span class="icon-bar"></span>
+  	</button>
+  	
+	</div>
+
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+  	<ul class="nav navbar-nav">
+    	<li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+    	
+      <div class="dropdown">
+      <div class="btn-group">
+      <button type="button" 
+      data-toggle="dropdown" id="about" aria-haspopup="true" aria-expanded="true" class="btn btn-info dropdown-toggle">
+      <span class="caret"></span>
+      <span class="sr-only">About<span class="caret"></span>
+        </button>
+      
+      <ul class="dropdown-menu" aria-labelledby="aboutt">
+      <li><a href="#">Abouttt</a></li>
+      <li><a href="#">Maps</a></li>
+      
+      </ul>
+      </div>
+      </div>
+<!-- This code works for drop down but jumbotron covers it-->
+<div class="dropdown" style="float:left;">
+  <button class="dropbtn">Left</button>
+  <div class="dropdown-content" style="left:0;">
+    <a href="proofPage.html">Verification</a> <!-- added domain to 1,2,and 3-->
+    <a href="secretPage.html">Secret Events</a>
+    <a href="membersOnlyPage.html">Member</a>
+    <a href="mapsPage.html">Maps</a>
+  </div>
+</div>
+<!-- end of functioning dropdown code--> 
+<body>
+
+<ul>
+  <li class="dropdown">
+    <a href="#" class="dropbtn">Dropdown</a>
+    <div class="dropdown-content">
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+    </div>
+  </li>
+</ul>
+
+
+</body>
+
+    	<li><a href="#">Category</a></li>
+    	<li><a href="#">Podcast</a></li>
+  	</ul>
+  	<form class="nav navbar-nav navbar-right">
+    	<button type="button" class="btn btn-default navbar-btn">Sign in</button>
+    	</form>
+ 	 
+	</div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<body>
+ 
+<div class="col-xs-12">
+  <div class="jumbotron"> 
+    <div class="container">
+    <div class="row">
+     
+    
+    <h1 class="text-center">
+     CPP Student Verification
+    </h1>
+    <p class="text-center"> 
+      Please confirm that you are a CPP student by clicking the login button below. 
+    </p>
+    
+    <p class="text-center">
+      <a class ="btn btn-lg btn-success" href="https://blackboard.cpp.edu/" role ="button"> CPP Login 
+      </a>
+    </p>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+        var fbUserId;
+        var params;
+        var keyText;
+        var attText;
+        var valText;
+        var dynamodb = null;
+        var docClient = null;
+        var appId = '567554676762884'; //from facebook
+        var roleArn = 'arn:aws:iam::777138130388:role/dynamoForCisProject'; //from AWS IAM
+        var resultData = null;
+
+document.getElementById('putThis').onclick = function () {
+    dynamodb = new AWS.DynamoDB({ region: 'us-west-2' });
+    docClient = new AWS.DynamoDB.DocumentClient({ service: dynamodb });
+
+
+
+window.fbAsyncInit = function () {
+    FB.init({ appId: appId });
+
+    document.getElementById('login').onclick = function () {
+
+        FB.login(function (response) {
+            if (response.authResponse) {
+                AWS.config.credentials = new AWS.WebIdentityCredentials({ //WIF
+                    RoleArn: roleArn,
+                    ProviderId: 'graph.facebook.com',
+                    WebIdentityToken: response.authResponse.accessToken
+                });
+            }
+            else {
+                console.log("Issue logging in");
+            }
+
+            // Load the FB JS SDK asynchronously
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/all.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        })
+    }
+}</script>
+
+
+<div class="col-sm-4">
+<h2>column 1</h2>
+<p>model paragraph model paragraph model paragraph model paragraph model paragraph </p>
+<p><a class="btn btn-default" href="#" role="button">View Details&raquo; </a></p>
+</div>
+
+<div class="col-sm-4">
+<h2>column 1</h2>
+<p>model paragraph model paragraph model paragraph model paragraph model paragraph </p>
+<p><a class="btn btn-default" href="#" role="button">View Details&raquo; </a></p>
+</div>
+
+<div class="col-sm-4">
+<h2>column 1</h2>
+<p>model paragraph model paragraph model paragraph model paragraph model paragraph </p>
+<p><a class="btn btn-default" href="#" role="button">View Details&raquo; </a></p>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bronco Functions</title>
+<link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/dropdown.css">
+</head>
+<body class="bgimagepage">
+
+  <div class="container-fluid">
+
+    <nav class="bgimage navbar navbar-default navbar-fixed-center">
+      <div class="container">
+        <ul class="nav navbar-nav">
+
+
+          <li>
+
+
+            <button type="button" onclick="location.href='Bronco.html'"
+              id="Home" aria-haspopup="true" aria-expanded="true"
+              class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">Home
+
+
+            </button>
+
+
+          </li>
+          <li class="dropdown">
+
+            <button type="button" data-toggle="dropdown" id="About"
+              aria-haspopup="true" aria-expanded="true"
+              class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">
+              About <span class="caret"></span>
+
+            </button>
+
+            <ul class="dropdown-menu" aria-labelledby="About">
+
+              <li class="dropdown-header"></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Legal</a></li>
+              <li><a href="#">FAQ</a></li>
+
+            </ul>
+          </li>
+          <li class="dropdown">
+
+            <button type="button" data-toggle="dropdown" id="Category"
+              aria-haspopup="true" aria-expanded="true"
+              class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">
+              Go To <span class="caret"></span>
+
+            </button>
+
+            <ul class="dropdown-menu" aria-labelledby="Category">
+              <li class="dropdown-header">What are you looking for?</li>
+              <li><a href="Tonight.html">Tonight</a></li>
+              <li><a href="Upcoming.html">Upcoming</a></li>
+              <li><a href="Concerts.html">Concerts</a></li>
+              <li><a href="BarsClubs.html">Bars / Clubs</a></li>
+              <li><a href="#">House Parties</a></li>
+              <li><a href="#">Pool Parties</a></li>
+              <li><a href="#">Even Ratio</a></li>
+              <li><a href="#">21 & Over</a></li>
+              <li><a href="#">Members Only</a></li>
+              <li><a href="#">? Secret</a></li>
+              <li><a href="proof.html">Proof</a></li>
+              <li><a href="map.html">Map</a></li>
+              <li><a href="hosts.html">Hosts</a></li>
+              <li><a href="security.html">Security</a></li>
+              <li><a href="djs.html">DJs</a></li>
+              <li><a href="chat.html">Chat</a></li>
+            </ul>
+
+          </li>
+
+          <li>
+
+            <button type="button" data-toggle="dropdown" id="Podcast"
+              aria-haspopup="true" aria-expanded="true"
+              class="navbutton btn-xlarge btn btn-info dropdown-toggle navbar-btn">
+              Podcast <span class="caret"></span>
+
+            </button>
+
+            <ul class="dropdown-menu" aria-labelledby="Podcasts">
+              <li class="dropdown-header">What are you looking for?</li>
+              <li><a href="#">This Week</a></li>
+              <li><a href="#">All</a></li>
+            </ul>
+
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <div class="container marketing">
+    <div class="jumbotron">
+      <div class="container text-center">
+        <h1>Not A Member?</h1>
+        <p>Sign Up!
+        Already a member then log in!</p>
+        
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.2.18.min.js"></script>
+        <script id="facebook-jssdk"
+          src="https://connect.facebook.net/en_US/all.js"></script>
+
+
+        <hr class="featurette divider">
+        <div id="fb-root" class ="fb_reset">
+          <button  id="login">Facebook Login</button>
+        </div>
+        <button id="showTable">Sign Up</button>
+        <hr class="featurette divider">
+        <div id="body"></div>
+        
+
+        <script type="text/javascript">
+          var fbUserId;
+          var params;
+          var keyText;
+          var attText;
+          var valText;
+          var dynamodb = null;
+          var docClient = null;
+          var appId = '1684382618541521'; //from facebook
+          var roleArn = 'arn:aws:iam::843339908219:role/BroncoFunctions'; //from AWS IAM
+          var resultData = null;
+          document.getElementById('showTable').onclick = function() {
+            dynamodb = new AWS.DynamoDB({
+              region : 'us-west-2'
+            });
+            docClient = new AWS.DynamoDB.DocumentClient({
+              service : dynamodb
+            })
+            var data = "";
+            var params = {
+              TableName : "upcoming"
+            };
+            docClient.scan(params, function(err, data) {
+              if (err)
+                console.log(JSON.stringify(err, null, 2));
+              else
+                data += (JSON.stringify(data, null, 2));
+              document.getElementById('body').innerHTML = data;
+            })
+          };
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId : appId
+            });
+            document.getElementById('login').onclick = function() {
+              FB
+                  .login(function(response) {
+                    if (response.authResponse) {
+                      AWS.config.credentials = new AWS.WebIdentityCredentials(
+                          { //WIF
+                            RoleArn : roleArn,
+                            ProviderId : 'graph.facebook.com',
+                            WebIdentityToken : response.authResponse.accessToken
+                          });
+                    } else {
+                      console.log("Issue logging in");
+                    }
+                    // Load the FB JS SDK asynchronously
+                    (function(d, s, id) {
+                      var js, fjs = d
+                          .getElementsByTagName(s)[0];
+                      if (d.getElementById(id)) {
+                        return;
+                      }
+                      js = d.createElement(s);
+                      js.id = id;
+                      js.src = "https://connect.facebook.net/en_US/all.js";
+                      fjs.parentNode
+                          .insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+                  })
+            }
+          }
+          </script>
+        
+      </div>
+    </div>
+    </div>
+</body>
+
+<script src="https://s3-us-west-2.amazonaws.com/cis311project/jquery-3.1.1.min.js"></script>
+<script src="https://s3-us-west-2.amazonaws.com/cis311project/bootstrap.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

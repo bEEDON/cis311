@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <!--<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cisproject/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/cisproject/css/dropdown.css"-->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/dropdown.css">
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 50%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+
+
+<body>
+
+
+
+
+
+<div ng-controller="CollapseDemoCtrl">
+  <p>Resize window to less than 768 pixels to display mobile menu toggle button.</p>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">A menu</a>
+    </div>
+    <div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Link 1</a></li>
+        <li><a href="#">Link 2</a></li>
+      </ul>
+    </div>
+  </nav>
+  <hr>
+  <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse Vertically</button>
+  <hr>
+  <div uib-collapse="isCollapsed">
+    <div class="well well-lg">Some content</div>
+  </div>
+
+  <button type="button" class="btn btn-default" ng-click="isCollapsedHorizontal = !isCollapsedHorizontal">Toggle collapse Horizontally</button>
+  <hr>
+  <div class="horizontal-collapse" uib-collapse="isCollapsedHorizontal" horizontal>
+    <div class="well well-lg">Some content</div>
+  </div>
+</div>
+  </body>
+    <img alt="Click Here" height="150" src="https://github.com/bEEDON/cis311/blob/master/broncofunctionlogos.jpg" width="200">
+   <div id="omnibox" class="vasquette-margin-enabled noprint">
+    <div id="omnibox-singlebox">
+      <div jstcache="368" class="omnibox-singlebox-root omnibox-active" jsan="t-K4pZzqty9ck,7.omnibox-singlebox-root,7.omnibox-active,0.jstrack" jstrack="4gwgWNWkGca6jwPLmrfQCA:22"> 
+        <div class="searchbox-hamburger-container">
+         <button aria-label="Menu" guidedhelpid="searchbox_hamburger" vet="10760" jstcache="348" jsaction="settings.open;mouseover:omnibox.showTooltip;mouseout:omnibox.hideTooltip;focus:omnibox.showTooltip;blur:omnibox.hideTooltip" class="searchbox-hamburger" jsan="7.searchbox-hamburger,0.ved,0.aria-label,0.guidedhelpid,0.vet,22.jsaction" ved="1i:1,t:10760,e:0,p:4gwgWNWkGca6jwPLmrfQCA:22">
+         </button>
+          <span aria-hidden="true" class="omnibox-tooltip kd-tooltip-dark">Menu</span> 
+        </div> <div id="searchbox" role="search" jstcache="349" class="searchbox searchbox-shadow noprint clear-button-shown query-not-relevant" jsan="7.searchbox,7.searchbox-shadow,7.noprint,7.sbox-focus,7.directions-button-shown,7.searchbox-empty,0.id,0.role"> 
+        <form id="searchbox_form" onsubmit="return false;" class="initial-searchbox-wrapper">
+         <div class="gstl_50 sbib_a">
+          <div class="sbib_d" id="sb_chc50" dir="ltr">
+          </div>
+          <div class="gsst_b sbib_c" id="gs_st50" dir="ltr">
+          </div>  
+          <div class="sbib_b" id="sb_ifc50" dir="ltr">
+            <div id="gs_lc50" style="position: relative;">
+              <input autofocus="autofocus" aria-label="Search Google Maps" autocomplete="off" id="searchboxinput" name="q" jstcache="350" jsaction="keyup:omnibox.keyUp;input:omnibox.inputDetected" class="tactile-searchbox-input searchboxinput" jsan="7.searchboxinput,0.autofocus,0.placeholder,0.aria-label,0.autocomplete,0.id,0.name,22.jsaction" aria-haspopup="false" role="combobox" aria-autocomplete="both" dir="ltr" spellcheck="false" style="border: none; padding: 0px; margin: 0px; height: auto; width: 100%; background: url(&quot;data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D&quot;) transparent; position: absolute; z-index: 6; left: 0px; outline: none;">
+              <input class="tactile-searchbox-input" disabled="" autocomplete="off" autocapitalize="off" aria-hidden="true" id="gs_htif50" dir="ltr" style="border: none; padding: 0px; margin: 0px; height: auto; width: 100%; position: absolute; z-index: 1; background-color: transparent; -webkit-text-fill-color: silver; color: silver; transition: all 0.218s; opacity: 0; text-align: left; left: 0px;">
+            </div>
+          </div>
+        </div>
+         </form>
+          <div class="searchbox-searchbutton-container"> 
+            <button aria-label="Search" guidedhelpid="searchbutton" id="searchbox-searchbutton" jsaction="omnibox.search;mouseover:omnibox.showTooltip;mouseout:omnibox.hideTooltip;focus:omnibox.showTooltip;blur:omnibox.hideTooltip" class="searchbox-searchbutton">
+            </button>
+             <span aria-hidden="true" class="omnibox-tooltip kd-tooltip-dark">Search</span>
+              </div> 
+              <div jstcache="351" class="searchbox-directions-container" style="display: none;"> 
+                <button aria-label="Directions" guidedhelpid="directions_icon" id="searchbox-directions" vet="11157" jstcache="352" jsaction="omnibox.showDirections;mousemove:omnibox.preloadDirections;mouseover:omnibox.showTooltip;mouseout:omnibox.hideTooltip;focus:omnibox.showTooltip;blur:omnibox.hideTooltip" class="searchbox-directions" jsan="7.searchbox-directions,0.ved,0.aria-label,0.guidedhelpid,0.id,0.vet,22.jsaction" ved="1i:3,t:11157,e:2,p:4gwgWNWkGca6jwPLmrfQCA:22">
+                </button>
+                 <span aria-hidden="true" class="omnibox-tooltip kd-tooltip-dark">Directions</span>
+                  </div>
+                   <a class="gsst_a" href="javascript:void(0)" role="button" tooltip="Clear search" aria-label="Clear search" guidedhelpid="clear_search">
+                    <span class="sbcb_a" id="sb_cb50" aria-label="Clear search"></span>
+                  </a> 
+                </div> 
+              </div>
+              <div class="gstl_50 sbdd_a" style="position: relative;">
+                <div class="fl">
+                </div>
+                <div>
+                  <div class="sbdd_b" style="display: none;">
+                  </div>
+                  <div>
+                    <div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+             <div id="omnibox-directions" tabindex="-1" class="widget-directions" style="display:none;outline:none">
+             </div>
+              </div>
+    <div id="map">
+    </div>
+    <script>
+      var map;
+      function initMap()
+       {
+        map = new google.maps.Map(document.getElementById('map'), 
+        {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
+
+      
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?AIzaSyBG-gxg25Q0GG_3k7r9UFp1KpAe4G8GOpE&callback=initMap"
+    async defer></script>
+
+
+<script type="text/javascript">
+        var fbUserId;
+        var params;
+        var keyText;
+        var attText;
+        var valText;
+        var dynamodb = null;
+        var docClient = null;
+        var appId = '567554676762884'; //from facebook
+        var roleArn = 'arn:aws:iam::777138130388:role/dynamoForCisProject'; //from AWS IAM
+        var resultData = null;
+
+document.getElementById('putThis').onclick = function () {
+    dynamodb = new AWS.DynamoDB({ region: 'us-west-2' });
+    docClient = new AWS.DynamoDB.DocumentClient({ service: dynamodb });
+window.fbAsyncInit = function () {
+    FB.init({ appId: appId });
+
+    document.getElementById('login').onclick = function () {
+
+        FB.login(function (response) {
+            if (response.authResponse) {
+                AWS.config.credentials = new AWS.WebIdentityCredentials({ //WIF
+                    RoleArn: roleArn,
+                    ProviderId: 'graph.facebook.com',
+                    WebIdentityToken: response.authResponse.accessToken
+                });
+            }
+            else {
+                console.log("Issue logging in");
+            }
+
+            // Load the FB JS SDK asynchronously
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/all.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        })
+    }
+}</script>
+
+  </body>
+</html>
+
+
+
+
+
+
+
+<!--       <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bronco Function</title>
+<link href="css/bootstrap.css" rel="stylesheet">
+</head>
+<nav class="navbar navbar-inverse navbar-fixed top">
+  <div class="container-fluid">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<!--   <div class="navbar-header">
+  	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+    	<span class="sr-only">Toggle navigation</span>
+    	<span class="icon-bar"></span>
+    	<span class="icon-bar"></span>
+    	<span class="icon-bar"></span>
+  	</button>
+  	
+	</div>
+
+
+	<!--       Collect the nav links, forms, and other content for toggling -->
+<!--    	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+  	<ul class="nav navbar-nav">
+    	<li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+    	<li><a href="#">About</a></li>
+    	<li><a href="#">Category</a></li>
+    	<li><a href="#">Podcast</a></li>
+  	</ul>
+  	<form class="nav navbar-nav navbar-right">
+    	<button type="button" class="btn btn-default navbar-btn">Sign in</button>
+    	</form>
+ 	
+	</div><!-- /.navbar-collapse -->
+ <!--  </div><!-- /.container-fluid -->
+  
+<!--   </nav>
+<body>
+ 
+<div class="col-xs-12">
+  <div class="jumbotron"> 
+    <div class="container">
+    <div class="row">
+     
+    
+    <h1 class="text-center">
+     CPP Student Verification
+    </h1>
+    <p class="text-center"> 
+      Please confirm that you are a CPP student by clicking the login button below. 
+    </p>
+    
+    <p class="text-center">
+      <a class ="btn btn-lg btn-success" href="https://blackboard.cpp.edu/" role ="button"> CPP Login 
+      </a>
+    </p>
+    </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBG-gxg25Q0GG_3k7r9UFp1KpAe4G8GOpE=initMap"
+  async defer>
+</script>
+
+</body>
+</html>
+
+
+
+
